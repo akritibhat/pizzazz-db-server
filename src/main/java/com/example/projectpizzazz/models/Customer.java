@@ -24,12 +24,25 @@ public class Customer {
 	private String phone;
 	private Date dateOfBirth;
 	private String address;
-
+	
+	@OneToMany(mappedBy="customer")
+	private List<Review> reviews;
 	
 	@OneToMany(mappedBy="customer")
 	private List<Appointment> appointments;
-	
 
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 	public String getAddress() {
 		return address;
 	}
