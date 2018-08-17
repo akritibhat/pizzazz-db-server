@@ -56,8 +56,13 @@ public class CustomerService {
 	@PostMapping("/api/username")
 	public Customer findUserByUsernamePassword(@RequestBody Customer user, HttpSession session) {
 		Customer cu = repository.findCustomer(user.getUsername(), user.getPassword());
+		if(cu !=null) {
 		session.setAttribute("currentCustomer", cu);
 		return cu;
+		}
+		else {
+			return new Customer();
+		}
 
 	}
 
