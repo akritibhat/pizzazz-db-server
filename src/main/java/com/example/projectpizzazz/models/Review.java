@@ -21,7 +21,9 @@ public class Review {
 	private RESPONSE isLike;
 	
 	@ManyToOne
-	@JsonIgnore
+	private Salon salon;
+	
+	@ManyToOne
 	private Customer customer;
 	
 	public int getId() {
@@ -50,5 +52,11 @@ public class Review {
 	}
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+	public Salon getSalon() {
+		return salon;
+	}
+	public void setSalon(Salon salon) {
+		this.salon = salon;
 	}
 }
