@@ -23,8 +23,6 @@ public class Appointment {
 	@JsonIgnore
 	private Customer customer;
 	
-	
-
 	public int getId() {
 		return id;
 	}

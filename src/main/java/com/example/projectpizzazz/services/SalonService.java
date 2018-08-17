@@ -42,7 +42,7 @@ public class SalonService {
 	}
 
 
-	@GetMapping("/api/{salonId}/salon")
+	@GetMapping("/api/salon/{salonId}")
 	public Salon findSalonById(@PathVariable("salonId") int salonId) {
 		Optional<Salon> data = repository.findById(salonId);
 		if (data.isPresent()) {
@@ -51,7 +51,7 @@ public class SalonService {
 		return null;
 	}
 	
-	@GetMapping("/api/{salonId}/salonOwner")
+	@GetMapping("/api/{owner}/salonOwner")
 	public Salon findSalonByOwner(@PathVariable("owner") int owner) {
 		Optional<Salon> data = repository.findSalonByOwner(owner);
 		if (data.isPresent()) {
