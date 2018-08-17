@@ -20,6 +20,9 @@ public class Review {
 	}
 	private RESPONSE isLike;
 	
+	private String comment;
+	
+	
 	@ManyToOne
 	private Salon salon;
 	
@@ -38,8 +41,7 @@ public class Review {
 	public void setIsLike(RESPONSE isLike) {
 		this.isLike = isLike;
 	}
-	private String comment;
-	
+
 
 	public String getComment() {
 		return comment;
