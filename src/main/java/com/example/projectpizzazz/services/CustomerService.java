@@ -19,7 +19,7 @@ import com.example.projectpizzazz.models.Customer;
 import com.example.projectpizzazz.repositories.CustomerRepository;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600 ,  allowCredentials = "true")
 public class CustomerService {
 	@Autowired
 	CustomerRepository repository;
@@ -56,7 +56,7 @@ public class CustomerService {
 	@PostMapping("/api/username")
 	public Customer findUserByUsernamePassword(@RequestBody Customer user, HttpSession session) {
 		Customer cu = repository.findCustomer(user.getUsername(), user.getPassword());
-		session.setAttribute("currentUser", cu);
+		session.setAttribute("currentCustomer", cu);
 		return cu;
 
 	}

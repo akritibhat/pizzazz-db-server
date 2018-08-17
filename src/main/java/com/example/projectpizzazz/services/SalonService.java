@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,11 +16,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.projectpizzazz.models.Customer;
 import com.example.projectpizzazz.models.Salon;
 import com.example.projectpizzazz.repositories.SalonRepository;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600 ,  allowCredentials = "true")
 public class SalonService {
 	
 
@@ -26,12 +29,14 @@ public class SalonService {
 	SalonRepository repository;
 	
 	@DeleteMapping("/api/{salonId}/salon")
-	public void deleteUser(@PathVariable("salonId") int id) {
+	public void deleteSalon(@PathVariable("salonId") int id) {
 		repository.deleteById(id);
 	}
 
 	@PostMapping("/api/salon")
-	public Salon createSalon(@RequestBody Salon salon) {
+	public Salon createSalon(@RequestBody Salon salon , HttpSession session) {
+		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
+		salon.setSalonOwner(currentUser.getId());
 		Salon salonNew = repository.save(salon);
 		return salonNew;
 	}
@@ -46,13 +51,28 @@ public class SalonService {
 		return null;
 	}
 	
+	@GetMapping("/api/{salonId}/salonOwner")
+	public Salon findSalonByOwner(@PathVariable("owner") int owner) {
+		Optional<Salon> data = repository.findSalonByOwner(owner);
+		if (data.isPresent()) {
+			return data.get();
+		}
+		return new Salon();
+	}
+	
+	@GetMapping("/api/checkSalon")
+	public Salon checkSalon(HttpSession session) {
+		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
+		return findSalonByOwner(currentUser.getId());
+	}
+	
 	@GetMapping("/api/salon")
 	public List<Salon> findAllSalons() {
 		return (List<Salon>) repository.findAll();
 	}
 	
 	
-	@PutMapping("/api/{salonId}/salon")
+	@PutMapping("/api/salon/{salonId}")
 	public Salon updateSalon(@PathVariable("salonId") int salonId, @RequestBody Salon newSalon) {
 		Optional<Salon> data = repository.findById(salonId);
 		if (data.isPresent()) {

@@ -4,10 +4,12 @@ package com.example.projectpizzazz.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,6 +27,16 @@ public class Customer {
 	private Date dateOfBirth;
 	private String address;
 	
+	@Lob
+    @Column(name="PROFILE_PIC")
+    private byte[] profilePic;
+	
+	public byte[] getProfilePic() {
+		return profilePic;
+	}
+	public void setProfilePic(byte[] profilePic) {
+		this.profilePic = profilePic;
+	}
 	@OneToMany(mappedBy="customer")
 	private List<Review> reviews;
 	
