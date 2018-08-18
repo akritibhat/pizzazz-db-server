@@ -27,6 +27,7 @@ public class Customer {
 	private Date dateOfBirth;
 	private String address;
 	
+	
 	@Lob
     @Column(name="PROFILE_PIC")
     private byte[] profilePic;

@@ -21,7 +21,7 @@ import com.example.projectpizzazz.models.Salon;
 import com.example.projectpizzazz.repositories.SalonRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600 ,  allowCredentials = "true")
+@CrossOrigin(origins = "*", maxAge = 3600 ,  allowCredentials = "true")
 public class SalonService {
 	
 
