@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Appointment {
@@ -24,6 +26,7 @@ public class Appointment {
 	private Customer customer;
 		
 	@ManyToOne
+	@JsonIgnore
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name="salonId")
 	private Salon salon;

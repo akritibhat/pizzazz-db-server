@@ -28,6 +28,7 @@ public class Review {
 		this.rating = rating;
 	}
 	@ManyToOne
+	@JsonIgnore
 	private Salon salon;
 	
 	@ManyToOne
