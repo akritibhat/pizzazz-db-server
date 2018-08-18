@@ -20,14 +20,20 @@ public class Review {
 	}
 	private RESPONSE isLike;
 	
+	private int rating;
+	
 	private String comment;
 	
-	
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 	@ManyToOne
 	private Salon salon;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Customer customer;
 	
 	public int getId() {

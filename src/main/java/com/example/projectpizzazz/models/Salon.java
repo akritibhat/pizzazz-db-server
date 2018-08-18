@@ -40,6 +40,15 @@ public class Salon {
 	@OneToMany
 	private List<Appointment> appointments;
 	
+	@OneToMany
+	private List<Review> reviews;
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 	@Lob
     @Column(name="SALON_PIC")
     private byte[] profilePic;
