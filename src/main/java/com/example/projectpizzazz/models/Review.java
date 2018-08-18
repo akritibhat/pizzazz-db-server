@@ -24,7 +24,6 @@ public class Review {
 	
 	
 	@ManyToOne
-	@JsonIgnore
 	private Salon salon;
 	
 	@ManyToOne
