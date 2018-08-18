@@ -14,11 +14,8 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	enum RESPONSE
-	{
-	    LIKE,UNLIKE;
-	}
-	private RESPONSE isLike;
+	
+	private boolean isLike;
 	
 	private String comment;
 	
@@ -36,14 +33,13 @@ public class Review {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public RESPONSE getIsLike() {
+
+	public boolean isLike() {
 		return isLike;
 	}
-	public void setIsLike(RESPONSE isLike) {
+	public void setLike(boolean isLike) {
 		this.isLike = isLike;
 	}
-
-
 	public String getComment() {
 		return comment;
 	}
