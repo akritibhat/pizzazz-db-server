@@ -31,6 +31,14 @@ public class CustomerService {
 
 	@PostMapping("/api/user")
 	public Customer createUser(@RequestBody Customer user, HttpSession session) {
+		user.setImage("https://static.thenounproject.com/png/1095867-200.png");
+		user.setStatus("Hi, I am new to PiZZazz!!!");
+		if(user!=null && user.getRole()!=null && user.getRole().equalsIgnoreCase("true")) {
+			user.setRole("owner");
+		}
+		if(user!=null && user.getRole()!=null && user.getRole().equalsIgnoreCase("reviewer")) {
+			user.setStatus("Verified Pizzazz Reviewer");
+		}
 		Customer cu = repository.save(user);
 		session.setAttribute("currentCustomer", cu);
 		return cu;

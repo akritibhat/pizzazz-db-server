@@ -26,6 +26,7 @@ public class Customer {
 	private String phone;
 	private Date dateOfBirth;
 	private String address;
+	private String status;
 
 	@Lob
 	@Column(name = "PROFILE_PIC")
@@ -156,5 +157,13 @@ public class Customer {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
