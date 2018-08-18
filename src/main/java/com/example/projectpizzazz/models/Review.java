@@ -32,6 +32,7 @@ public class Review {
 	private Salon salon;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Customer customer;
 	
 	public int getId() {
