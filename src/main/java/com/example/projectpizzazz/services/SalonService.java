@@ -108,9 +108,9 @@ public class SalonService {
 		List<Salon> data = (List<Salon>) repository.findAll();
 		List<Salon> result = new ArrayList<Salon>();
 		for(Salon ss : data) {
-			if(ss.getName().contains(key)
-					|| ss.getCity().contains(key)
-					|| ss.getAddress().contains(key)) {
+			if(ss.getName().toLowerCase().contains(key.toLowerCase())
+					|| ss.getCity().toLowerCase().contains(key.toLowerCase())
+					|| ss.getAddress().toLowerCase().contains(key.toLowerCase())){
 				result.add(ss);
 			}
 		}

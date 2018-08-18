@@ -16,11 +16,9 @@ public class Invitation {
 	private int id;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Customer salonOwner;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Customer reviewer;
 	
 	public Customer getSalonOwner() {
