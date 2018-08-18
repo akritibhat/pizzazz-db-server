@@ -32,7 +32,7 @@ public class CustomerService {
 	@PostMapping("/api/user")
 	public Customer createUser(@RequestBody Customer user, HttpSession session) {
 		user.setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8cx_wQfP0URTzJh5dNBKOUHBCxo_NsqTRFPaoDqxfGrnpQ2vw");
-		if(user!=null && user.getRole()=="true") {
+		if(user!=null && user.getRole()!=null && user.getRole().equalsIgnoreCase("true")) {
 			user.setRole("owner");
 		}
 		Customer cu = repository.save(user);
