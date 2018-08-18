@@ -34,6 +34,7 @@ public class CustomerService {
 		user.setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8cx_wQfP0URTzJh5dNBKOUHBCxo_NsqTRFPaoDqxfGrnpQ2vw");
 		if(user!=null && user.getRole()!=null && user.getRole().equalsIgnoreCase("true")) {
 			user.setRole("owner");
+			user.setStatus("Hi, I am new to PiZZazz!!!");
 		}
 		Customer cu = repository.save(user);
 		session.setAttribute("currentCustomer", cu);
