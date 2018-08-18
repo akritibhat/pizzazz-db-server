@@ -13,4 +13,7 @@ public interface SalonRepository extends CrudRepository<Salon, Integer>{
 	@Query("SELECT s FROM Salon s WHERE s.salonOwner=:owner")
 	Optional<Salon> findSalonByOwner(
 		@Param("owner") int owner);
+	
+	@Query("SELECT s FROM Salon s WHERE s.yelpId=:yelpId")
+	Optional<Salon> findSalonByYelpId(@Param("yelpId") String yelpId);
 }

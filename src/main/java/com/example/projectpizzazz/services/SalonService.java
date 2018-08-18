@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import com.example.projectpizzazz.models.Salon;
 import com.example.projectpizzazz.repositories.SalonRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600 ,  allowCredentials = "true")
+@CrossOrigin(origins = "*", maxAge = 3600 ,  allowCredentials = "true")
 public class SalonService {
 	
 
@@ -40,6 +41,13 @@ public class SalonService {
 		Salon salonNew = repository.save(salon);
 		return salonNew;
 	}
+	
+	@PostMapping("/api/salonforApi/{salonId}")
+	public Salon createApiSalon(@PathVariable ("salonId") String salonId) {
+		Salon newSalon = new Salon();
+		newSalon.setYelpId(salonId);
+		return repository.save(newSalon);
+	}
 
 
 	@GetMapping("/api/salon/{salonId}")
@@ -49,6 +57,16 @@ public class SalonService {
 			return data.get();
 		}
 		return null;
+	}
+	
+	@GetMapping("/api/salonApi/{salonId}")
+	public Salon findSalonByAnyId(@PathVariable("salonId") String salonId, HttpServletResponse response) {
+		Optional<Salon> data = repository.findSalonByYelpId(salonId);
+		if (data.isPresent()) {
+			response.setStatus(HttpServletResponse.SC_OK);
+			return data.get();
+		}
+		return new Salon();
 	}
 	
 	@GetMapping("/api/{owner}/salonOwner")
@@ -76,9 +94,10 @@ public class SalonService {
 	public Salon updateSalon(@PathVariable("salonId") int salonId, @RequestBody Salon newSalon) {
 		Optional<Salon> data = repository.findById(salonId);
 		if (data.isPresent()) {
-			Salon user = data.get();
-			repository.save(user);
-			return user;
+			Salon salon = data.get();
+			salon.setAppointments(newSalon.getAppointments());
+			repository.save(salon);
+			return salon;
 		}
 		return null;
 	}

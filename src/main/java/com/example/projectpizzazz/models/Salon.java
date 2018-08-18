@@ -1,19 +1,31 @@
 package com.example.projectpizzazz.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Salon {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID", updatable = true, insertable = true)
 	private int id;
 	
+	private String yelpId;
+	
+	public String getYelpId() {
+		return yelpId;
+	}
+	public void setYelpId(String yelpId) {
+		this.yelpId = yelpId;
+	}
 	private String name;
 	private String address;
 
@@ -25,6 +37,9 @@ public class Salon {
 	private String website;
 	private int phone;
 	
+	@OneToMany
+	private List<Appointment> appointments;
+	
 	@Lob
     @Column(name="SALON_PIC")
     private byte[] profilePic;
@@ -33,6 +48,12 @@ public class Salon {
 	
 	public byte[] getProfilePic() {
 		return profilePic;
+	}
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 	public void setProfilePic(byte[] profilePic) {
 		this.profilePic = profilePic;

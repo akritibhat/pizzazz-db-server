@@ -1,9 +1,11 @@
 package com.example.projectpizzazz.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,9 +21,24 @@ public class Appointment {
 	
 	private String date;
 
-	@ManyToOne
-	@JsonIgnore
+	@ManyToOne	
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="CustomerId")
 	private Customer customer;
+		
+	@ManyToOne
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="salonId")
+	private Salon salon;
+	
+	
+	public Salon getSalon() {
+		return salon;
+	}
+
+	public void setSalon(Salon salon) {
+		this.salon = salon;
+	}
 	
 	public int getId() {
 		return id;
@@ -54,6 +71,5 @@ public class Appointment {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
 
 }
