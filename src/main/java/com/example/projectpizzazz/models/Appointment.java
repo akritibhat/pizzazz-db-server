@@ -31,6 +31,10 @@ public class Appointment {
 //	@JoinColumn(name="salonId")
 	private Salon salon;
 	
+	@ManyToOne
+	@JsonIgnore
+	private Salon salon;
+	
 	
 	public Salon getSalon() {
 		return salon;
