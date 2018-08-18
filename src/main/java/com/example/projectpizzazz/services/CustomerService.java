@@ -71,6 +71,11 @@ public class CustomerService {
 		return (List<Customer>) repository.findAll();
 	}
 
+	@GetMapping("/api/reviewers")
+	public List<Customer> findAllReviewers() {
+		return (List<Customer>) repository.findAllReviewers();
+	}
+	
 	@PutMapping("/api/user/{userId}")
 	public Customer updateUser(@PathVariable("userId") int userId, @RequestBody Customer newUser) {
 		Optional<Customer> data = repository.findById(userId);

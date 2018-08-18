@@ -23,5 +23,8 @@ public interface CustomerRepository
 	@Query("SELECT u FROM Customer u WHERE u.username=:username")
 	Iterable<Customer> findCustomerByUsername(
 		@Param("username") String username);
+	
+	@Query("SELECT u FROM Customer u WHERE u.role='reviewer'")
+	Iterable<Customer> findAllReviewers();
 
 }
