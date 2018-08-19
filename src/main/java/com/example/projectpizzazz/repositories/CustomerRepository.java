@@ -27,5 +27,7 @@ public interface CustomerRepository
 	
 	@Query("SELECT u FROM Customer u WHERE u.role='reviewer'")
 	Iterable<Customer> findAllReviewers();
-
+	
+	@Query("SELECT u FROM Customer u WHERE u.role='owner'")
+	Iterable<Customer> findAllOwners();
 }

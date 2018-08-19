@@ -1,5 +1,6 @@
 package com.example.projectpizzazz.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +85,22 @@ public class CustomerService {
 	@GetMapping("/api/reviewers")
 	public List<Customer> findAllReviewers() {
 		return (List<Customer>) repository.findAllReviewers();
+	}
+	
+	@GetMapping("/api/owners")
+	public List<Customer> findAllOwners() {
+		return (List<Customer>) repository.findAllOwners();
+	}
+	
+	@GetMapping("/api/customers")
+	public List<Customer> findAllCustomers() {
+		List<Customer> res =  (List<Customer>) repository.findAll();
+		List<Customer> ans = new ArrayList<Customer>();
+		for(Customer result : res) {
+			if(result.getRole()==null || (result.getRole()!=null && result.getRole().trim().equalsIgnoreCase("")))
+				ans.add(result);
+		}
+		return ans;
 	}
 	
 	@PutMapping("/api/user/{userId}")
