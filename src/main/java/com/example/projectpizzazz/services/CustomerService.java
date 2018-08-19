@@ -52,26 +52,9 @@ public class CustomerService {
 	}
 
 	@PostMapping("/api/login")
-	public Customer login(@RequestBody Customer user, HttpSession session,  HttpServletResponse response) {
-		Customer fetchedUser = null;
+	public List<Customer> login(@RequestBody Customer user, HttpSession session) {
 		System.out.println(checkLogin(session).getUsername());
-		Iterable<Customer> user1 = repository.findCustomerByCredentials(user.getUsername(), user.getPassword());
-		
-		for (Customer user2 : user1) {
-					
-					fetchedUser = user2;
-					break;
-				}
-				
-				if(fetchedUser != null) {
-					user.setId(fetchedUser.getId());
-				}
-				else {
-					response.setStatus(HttpServletResponse.SC_CONFLICT);
-				}
-				
-				return fetchedUser;
-		
+		return (List<Customer>) repository.findCustomerByCredentials(user.getUsername(), user.getPassword());
 	}
 
 	@PostMapping("/api/logout")
@@ -80,16 +63,23 @@ public class CustomerService {
 	}
 
 	@PostMapping("/api/username")
-	public Customer findUserByUsernamePassword(@RequestBody Customer user, HttpSession session) {
-		Customer cu = repository.findCustomer(user.getUsername(), user.getPassword());
-		if(cu !=null) {
-		session.setAttribute("currentCustomer", cu);
-		return cu;
+	public Customer findUserByUsernamePassword(@RequestBody Customer user, HttpSession session, HttpServletResponse response) {
+		Customer fetchedUser = null;
+		Iterable<Customer> user1 = repository.findCustomerByCredentials(user.getUsername(), user.getPassword());
+		
+		for (Customer user2 : user1) {
+			fetchedUser = user2;
+			break;
+		}
+		
+		if(fetchedUser != null) {
+			user.setId(fetchedUser.getId());
 		}
 		else {
-			return new Customer();
+			response.setStatus(HttpServletResponse.SC_CONFLICT);
 		}
-
+		
+		return fetchedUser;
 	}
 
 	@GetMapping("/api/user")
