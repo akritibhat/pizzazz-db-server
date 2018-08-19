@@ -153,7 +153,7 @@ public class CustomerService {
 		return null;
 	}
 
-	@GetMapping("/api/user/username/{userName}")
+	@GetMapping("/api/user/{userName}/username")
 	public Iterable<Customer> findUserByUsername(@PathVariable("userName") String username) {
 		return repository.findCustomerByUsername(username);
 	}
