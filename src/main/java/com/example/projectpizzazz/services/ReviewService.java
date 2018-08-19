@@ -127,5 +127,16 @@ public class ReviewService {
 			}
 				return addedApts;
 	}
+	
+	@GetMapping("/api/like/salon/{salonId}/user/{userId}/")
+	public Review getLikeForSalonForCustomer(@PathVariable ("salonId") int salonId , @PathVariable ("userId") int userId ) {
+		List<Review> res = (List<Review>) ReviewRepository.findAll();
+		for(Review r : res) {
+			if(r.getReviewerId() == userId && 
+					r.isLike() && r.getSalonReviewedId() == salonId)
+			return r;
+		}
+		return null;
+	}
 
 }
