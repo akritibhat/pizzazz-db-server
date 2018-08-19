@@ -56,7 +56,7 @@ public class AppointmentService {
 	}*/
 	
 	@GetMapping("/api/salon/{salonId}/appointments")
-	public Iterable<Appointment> getSalonAppointment(@PathVariable ("salonId") int salonId ){
+	public Iterable<Appointment> getSalonAppointments(@PathVariable ("salonId") int salonId ){
 		Optional<Salon> salon = salonRepository.findById(salonId);
 		List<Appointment>res = new ArrayList<Appointment>();
 		if (salon.isPresent()) {
@@ -65,7 +65,7 @@ public class AppointmentService {
 			
 			while(i.hasNext()) {
 				Appointment temp = i.next();
-				if(temp.getSalon().getId() == salonId) {
+				if(temp.getSalon() != null && temp.getSalon().getId() == salonId) {
 					res.add(temp);
 				}
 			}

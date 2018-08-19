@@ -26,7 +26,6 @@ public class Appointment {
 	private Customer customer;
 		
 	@ManyToOne
-	@JsonIgnore
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name="salonId")
 	private Salon salon;
