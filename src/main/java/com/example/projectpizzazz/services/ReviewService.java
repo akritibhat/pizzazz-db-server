@@ -65,7 +65,7 @@ public class ReviewService {
 			
 			while(i.hasNext()) {
 				Review temp = i.next();
-				if(temp.getSalon()!= null && temp.getSalon().getId() == salonId) {
+				if(temp.getSalonReviewedId() == salonId) {
 					res.add(temp);
 				}
 			}
