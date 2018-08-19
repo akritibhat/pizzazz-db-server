@@ -9,6 +9,7 @@ import com.example.projectpizzazz.models.Customer;;
 
 public interface CustomerRepository 
 	extends CrudRepository<Customer, Integer>{
+	
 	@Query("SELECT u FROM Customer u WHERE u.username=:username AND u.password=:password")
 	Iterable<Customer> findCustomerByCredentials(
 		@Param("username") String username, 

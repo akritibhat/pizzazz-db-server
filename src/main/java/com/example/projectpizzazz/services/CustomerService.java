@@ -3,6 +3,7 @@ package com.example.projectpizzazz.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,26 @@ public class CustomerService {
 	}
 
 	@PostMapping("/api/login")
-	public List<Customer> login(@RequestBody Customer user, HttpSession session) {
+	public Customer login(@RequestBody Customer user, HttpSession session,  HttpServletResponse response) {
+		Customer fetchedUser = null;
 		System.out.println(checkLogin(session).getUsername());
-		return (List<Customer>) repository.findCustomerByCredentials(user.getUsername(), user.getPassword());
+		Iterable<Customer> user1 = repository.findCustomerByCredentials(user.getUsername(), user.getPassword());
+		
+		for (Customer user2 : user1) {
+					
+					fetchedUser = user2;
+					break;
+				}
+				
+				if(fetchedUser != null) {
+					user.setId(fetchedUser.getId());
+				}
+				else {
+					response.setStatus(HttpServletResponse.SC_CONFLICT);
+				}
+				
+				return fetchedUser;
+		
 	}
 
 	@PostMapping("/api/logout")
