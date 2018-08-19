@@ -62,8 +62,8 @@ public class SalonService {
 		List<Salon> res = new ArrayList<Salon>();
 		
 		for(Salon ss : temp) {
-			if(ss.getYelpId() !=null && ss.getWebsite()!=null
-					&& ss.getYelpId().equalsIgnoreCase(ss.getWebsite())) {
+			if(ss.getWebsite()!=null
+					&& ss.getWebsite().trim().equalsIgnoreCase("") ){
 				res.add(ss);
 			}
 		}
