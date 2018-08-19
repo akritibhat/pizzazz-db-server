@@ -41,6 +41,10 @@ public class ReviewService {
 	public Review createReview(@RequestBody Review review , HttpSession session) {
 		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
 		review.setReviewerId(currentUser.getId());
+		
+		if(review.getSalon()!=null)
+		review.setSalonReviewedId(review.getSalon().getId());
+		review.setSalon(null);
 		Review newReview = ReviewRepository.save(review);
 		return newReview;
 	}
@@ -75,6 +79,9 @@ public class ReviewService {
 		List<Review> addedApts = new ArrayList<>();
 		for(Review app : appts)
 			{
+			if(app.getSalon()!=null)
+				app.setSalonReviewedId(app.getSalon().getId());
+			app.setSalon(null);
 			if(app.getCustomer()!=null) {
 				Customer cu = app.getCustomer();
 				app.setReviewerId(cu.getId());
