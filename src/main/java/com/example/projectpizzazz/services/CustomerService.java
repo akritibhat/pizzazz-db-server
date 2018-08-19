@@ -25,8 +25,10 @@ public class CustomerService {
 	CustomerRepository repository;
 	
 	@DeleteMapping("/api/user/{userId}")
-	public void deleteUser(@PathVariable("userId") int id) {
+	public Customer deleteUser(@PathVariable("userId") int id) {
 		repository.deleteById(id);
+		return null;
+		
 	}
 
 	@PostMapping("/api/user")
