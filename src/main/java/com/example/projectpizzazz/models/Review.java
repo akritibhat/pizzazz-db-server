@@ -21,6 +21,8 @@ public class Review {
 	
 	private String comment;
 	
+	private int reviewerId;
+	
 	public int getRating() {
 		return rating;
 	}
@@ -31,7 +33,6 @@ public class Review {
 	private Salon salon;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Customer customer;
 	
 	public int getId() {
@@ -64,5 +65,11 @@ public class Review {
 	}
 	public void setSalon(Salon salon) {
 		this.salon = salon;
+	}
+	public int getReviewerId() {
+		return reviewerId;
+	}
+	public void setReviewerId(int reviewerId) {
+		this.reviewerId = reviewerId;
 	}
 }

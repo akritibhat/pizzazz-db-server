@@ -21,6 +21,7 @@ import com.example.projectpizzazz.models.Customer;
 import com.example.projectpizzazz.models.Review;
 import com.example.projectpizzazz.models.Salon;
 import com.example.projectpizzazz.repositories.SalonRepository;
+import com.example.projectpizzazz.repositories.CustomerRepository;
 import com.example.projectpizzazz.repositories.ReviewRepository;
 
 @RestController
@@ -32,6 +33,9 @@ public class ReviewService {
 	
 	@Autowired
 	SalonRepository salonRepository;
+	
+	@Autowired
+	CustomerRepository customerRepository;
 	
 	@PostMapping("/api/review")
 	public Review createReview(@RequestBody Review review , HttpSession session) {
@@ -71,7 +75,18 @@ public class ReviewService {
 		List<Review> addedApts = new ArrayList<>();
 		for(Review app : appts)
 			{
-			addedApts.add(ReviewRepository.save(app));
+			if(app.getCustomer()!=null) {
+				Customer cu = app.getCustomer();
+				app.setReviewerId(cu.getId());
+				Review newReview = ReviewRepository.save(app);
+				List<Review> rs = cu.getReviews();
+				rs.add(newReview);
+				cu.setReviews(rs);
+				customerRepository.save(cu);
+				addedApts.add(newReview);
+			}else {
+				addedApts.add(ReviewRepository.save(app));
+			}
 			}
 				return addedApts;
 	}
