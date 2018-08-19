@@ -3,7 +3,6 @@ package com.example.projectpizzazz.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,23 +62,16 @@ public class CustomerService {
 	}
 
 	@PostMapping("/api/username")
-	public Customer findUserByUsernamePassword(@RequestBody Customer user, HttpSession session, HttpServletResponse response) {
-		Customer fetchedUser = null;
-		Iterable<Customer> user1 = repository.findCustomerByCredentials(user.getUsername(), user.getPassword());
-		
-		for (Customer user2 : user1) {
-			fetchedUser = user2;
-			break;
-		}
-		
-		if(fetchedUser != null) {
-			user.setId(fetchedUser.getId());
+	public Customer findUserByUsernamePassword(@RequestBody Customer user, HttpSession session) {
+		Customer cu = repository.findCustomer(user.getUsername(), user.getPassword());
+		if(cu !=null) {
+		session.setAttribute("currentCustomer", cu);
+		return cu;
 		}
 		else {
-			response.setStatus(HttpServletResponse.SC_CONFLICT);
+			return new Customer();
 		}
-		
-		return fetchedUser;
+
 	}
 
 	@GetMapping("/api/user")
@@ -104,10 +96,6 @@ public class CustomerService {
 			user.setPhone(newUser.getPhone());
 			user.setStatus(newUser.getStatus());
 			user.setPhone(newUser.getPhone());
-			user.setImage(newUser.getImage());
-			if(user.getImage()==null || user.getImage().equalsIgnoreCase("")) {
-				user.setImage("https://static.thenounproject.com/png/1095867-200.png");
-			}
 			repository.save(user);
 			return user;
 		}
