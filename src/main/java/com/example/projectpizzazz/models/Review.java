@@ -23,6 +23,8 @@ public class Review {
 	
 	private int reviewerId;
 	
+	public int salonReviewedId;
+	
 	public int getRating() {
 		return rating;
 	}
@@ -71,5 +73,11 @@ public class Review {
 	}
 	public void setReviewerId(int reviewerId) {
 		this.reviewerId = reviewerId;
+	}
+	public int getSalonReviewedId() {
+		return salonReviewedId;
+	}
+	public void setSalonReviewedId(int salonReviewedId) {
+		this.salonReviewedId = salonReviewedId;
 	}
 }
