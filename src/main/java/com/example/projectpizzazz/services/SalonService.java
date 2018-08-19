@@ -42,10 +42,11 @@ public class SalonService {
 		return salonNew;
 	}
 	
-	@PostMapping("/api/salonforApi/{salonId}")
-	public Salon createApiSalon(@PathVariable ("salonId") String salonId) {
+	@PostMapping("/api/salonforApi/{salonId}/{name}")
+	public Salon createApiSalon(@PathVariable ("salonId") String salonId, @PathVariable("name") String name) {
 		Salon newSalon = new Salon();
 		newSalon.setYelpId(salonId);
+		newSalon.setName(name);
 		return repository.save(newSalon);
 	}
 
@@ -95,7 +96,10 @@ public class SalonService {
 		Optional<Salon> data = repository.findById(salonId);
 		if (data.isPresent()) {
 			Salon salon = data.get();
-			salon.setAppointments(newSalon.getAppointments());
+			salon.setName(newSalon.getName());
+			salon.setAddress(newSalon.getAddress());
+			salon.setCity(newSalon.getCity());
+			salon.setWebsite(newSalon.getCity());
 			repository.save(salon);
 			return salon;
 		}

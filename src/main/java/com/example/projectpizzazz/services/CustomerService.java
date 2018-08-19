@@ -93,9 +93,13 @@ public class CustomerService {
 			user.setFirstName(newUser.getFirstName());
 			user.setLastName(newUser.getLastName());
 			user.setEmail(newUser.getEmail());
-			user.setDateOfBirth(newUser.getDateOfBirth());
 			user.setPhone(newUser.getPhone());
-			user.setRole(newUser.getRole());
+			user.setStatus(newUser.getStatus());
+			user.setPhone(newUser.getPhone());
+			user.setImage(newUser.getImage());
+			if(user.getImage()==null || user.getImage().equalsIgnoreCase("")) {
+				user.setImage("https://static.thenounproject.com/png/1095867-200.png");
+			}
 			repository.save(user);
 			return user;
 		}
