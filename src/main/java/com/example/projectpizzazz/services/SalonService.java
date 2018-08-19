@@ -51,7 +51,6 @@ public class SalonService {
 		Optional<Customer> cu = customerRepository.findById(owner);
 		if(cu.isPresent()) {
 			salon.setSalonOwner(owner);
-			salon.setYelpId(salon.getWebsite());
 			repository.save(salon);
 		}
 		return new Salon();
