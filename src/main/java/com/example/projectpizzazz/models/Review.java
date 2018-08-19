@@ -25,6 +25,10 @@ public class Review {
 	
 	public int salonReviewedId;
 	
+	public String salonYelpId;
+	
+	public String salonName;
+	
 	public int getRating() {
 		return rating;
 	}
@@ -79,5 +83,17 @@ public class Review {
 	}
 	public void setSalonReviewedId(int salonReviewedId) {
 		this.salonReviewedId = salonReviewedId;
+	}
+	public String getSalonYelpId() {
+		return salonYelpId;
+	}
+	public void setSalonYelpId(String salonYelpId) {
+		this.salonYelpId = salonYelpId;
+	}
+	public String getSalonName() {
+		return salonName;
+	}
+	public void setSalonName(String salonName) {
+		this.salonName = salonName;
 	}
 }

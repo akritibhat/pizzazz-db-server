@@ -42,8 +42,11 @@ public class ReviewService {
 		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
 		review.setReviewerId(currentUser.getId());
 		
-		if(review.getSalon()!=null)
+		if(review.getSalon()!=null) {
 		review.setSalonReviewedId(review.getSalon().getId());
+		review.setSalonName(review.getSalon().getName());
+		review.setSalonYelpId(review.getSalon().getYelpId());
+		}
 		review.setSalon(null);
 		Review newReview = ReviewRepository.save(review);
 		return newReview;
@@ -86,8 +89,11 @@ public class ReviewService {
 		List<Review> addedApts = new ArrayList<>();
 		for(Review app : appts)
 			{
-			if(app.getSalon()!=null)
+			if(app.getSalon()!=null) {
 				app.setSalonReviewedId(app.getSalon().getId());
+				app.setSalonName(app.getSalon().getName());
+				app.setSalonYelpId(app.getSalon().getYelpId());
+				}
 			app.setSalon(null);
 			if(app.getCustomer()!=null) {
 				Customer cu = app.getCustomer();

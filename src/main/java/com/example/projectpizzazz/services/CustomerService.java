@@ -96,6 +96,9 @@ public class CustomerService {
 			user.setPhone(newUser.getPhone());
 			user.setStatus(newUser.getStatus());
 			user.setPhone(newUser.getPhone());
+			user.setImage(newUser.getImage());
+			if(user.getImage()==null || user.getImage().equalsIgnoreCase(""))
+				user.setImage("https://static.thenounproject.com/png/1095867-200.png");
 			repository.save(user);
 			return user;
 		}
