@@ -40,7 +40,7 @@ public class ReviewService {
 	@PostMapping("/api/review")
 	public Review createReview(@RequestBody Review review , HttpSession session) {
 		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
-		review.setCustomer(currentUser);
+		review.setReviewerId(currentUser.getId());
 		Review newReview = ReviewRepository.save(review);
 		return newReview;
 	}
