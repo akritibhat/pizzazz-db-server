@@ -58,7 +58,23 @@ public class ReviewService {
 		List<Review> result = new ArrayList<Review>();
 		
 		for(Review r : res) {
-			if(r.getReviewerId() == userId)
+			if(r.getReviewerId() == userId && 
+					r.getComment()!=null &&
+					(!r.getComment().trim().equalsIgnoreCase("")))
+			result.add(r);
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("/api/likes/{userId}/user")
+	public List<Review> getUserLikes(@PathVariable ("userId") int userId ){
+		List<Review> res = (List<Review>) ReviewRepository.findAll();
+		List<Review> result = new ArrayList<Review>();
+		
+		for(Review r : res) {
+			if(r.getReviewerId() == userId && 
+					r.isLike())
 			result.add(r);
 		}
 		
