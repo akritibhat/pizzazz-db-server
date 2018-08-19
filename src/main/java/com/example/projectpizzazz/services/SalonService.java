@@ -63,7 +63,7 @@ public class SalonService {
 		
 		for(Salon ss : temp) {
 			if(ss.getWebsite()!=null
-					&& ss.getWebsite().trim().equalsIgnoreCase("") ){
+					&& !ss.getWebsite().trim().equalsIgnoreCase("") ){
 				res.add(ss);
 			}
 		}
