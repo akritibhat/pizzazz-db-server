@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectpizzazz.models.Customer;
 import com.example.projectpizzazz.models.Salon;
+import com.example.projectpizzazz.repositories.CustomerRepository;
 import com.example.projectpizzazz.repositories.SalonRepository;
 
 @RestController
@@ -28,6 +29,9 @@ public class SalonService {
 
 	@Autowired
 	SalonRepository repository;
+	
+	@Autowired
+	CustomerRepository customerRepository;
 	
 	@DeleteMapping("/api/{salonId}/salon")
 	public void deleteSalon(@PathVariable("salonId") int id) {
@@ -40,6 +44,32 @@ public class SalonService {
 		salon.setSalonOwner(currentUser.getId());
 		Salon salonNew = repository.save(salon);
 		return salonNew;
+	}
+	
+	@PostMapping("/api/{owner}/salonFromAdmin")
+	public Salon createFromScreen(@PathVariable ("owner") int owner,@RequestBody Salon salon , HttpSession session) {
+		Optional<Customer> cu = customerRepository.findById(owner);
+		if(cu.isPresent()) {
+			salon.setSalonOwner(owner);
+			salon.setYelpId(salon.getWebsite());
+			repository.save(salon);
+		}
+		return new Salon();
+	}
+	
+	@GetMapping("/api/salonsFromAdmin")
+	public List<Salon> findAllSalonsFromAdmin() {
+		List<Salon> temp = (List<Salon>) repository.findAll();
+		List<Salon> res = new ArrayList<Salon>();
+		
+		for(Salon ss : temp) {
+			if(ss.getYelpId() !=null && ss.getWebsite()!=null
+					&& ss.getYelpId().equalsIgnoreCase(ss.getWebsite())) {
+				res.add(ss);
+			}
+		}
+		
+		return res;
 	}
 	
 	@PostMapping("/api/salonforApi/{salonId}/{name}")
