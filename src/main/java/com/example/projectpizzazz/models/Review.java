@@ -23,11 +23,20 @@ public class Review {
 	
 	private int reviewerId;
 	
+	public int salonId;
+	
 	public int getRating() {
 		return rating;
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+	
+	public int getSalonId() {
+		return salonId;
+	}
+	public void setSalonId(int salonId) {
+		this.salonId = salonId;
 	}
 	@ManyToOne
 	private Salon salon;

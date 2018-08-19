@@ -78,6 +78,7 @@ public class ReviewService {
 			if(app.getCustomer()!=null) {
 				Customer cu = app.getCustomer();
 				app.setReviewerId(cu.getId());
+				app.setCustomer(null);
 				Review newReview = ReviewRepository.save(app);
 				List<Review> rs = cu.getReviews();
 				rs.add(newReview);
