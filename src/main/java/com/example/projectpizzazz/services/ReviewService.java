@@ -49,10 +49,17 @@ public class ReviewService {
 		return newReview;
 	}
 	
-	@GetMapping("/api/reviews")
-	public List<Review> getUserReviews(HttpSession session){
-		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
-		return currentUser.getReviews();
+	@GetMapping("/api/reviews/{userId}/user")
+	public List<Review> getUserReviews(@PathVariable ("userId") int userId ){
+		List<Review> res = (List<Review>) ReviewRepository.findAll();
+		List<Review> result = new ArrayList<Review>();
+		
+		for(Review r : res) {
+			if(r.getReviewerId() == userId)
+			result.add(r);
+		}
+		
+		return result;
 	}
 	
 	@GetMapping("/api/salon/{salonId}/reviews")
