@@ -23,20 +23,13 @@ public class Review {
 	
 	private int reviewerId;
 	
-	public int salonId;
+	public int salonReviewedId;
 	
 	public int getRating() {
 		return rating;
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
-	}
-	
-	public int getSalonId() {
-		return salonId;
-	}
-	public void setSalonId(int salonId) {
-		this.salonId = salonId;
 	}
 	@ManyToOne
 	private Salon salon;
@@ -80,5 +73,11 @@ public class Review {
 	}
 	public void setReviewerId(int reviewerId) {
 		this.reviewerId = reviewerId;
+	}
+	public int getSalonReviewedId() {
+		return salonReviewedId;
+	}
+	public void setSalonReviewedId(int salonReviewedId) {
+		this.salonReviewedId = salonReviewedId;
 	}
 }
