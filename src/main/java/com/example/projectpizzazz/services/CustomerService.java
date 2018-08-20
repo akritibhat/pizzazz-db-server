@@ -1,6 +1,7 @@
 package com.example.projectpizzazz.services;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectpizzazz.models.Customer;
+import com.example.projectpizzazz.models.Review;
 import com.example.projectpizzazz.models.Salon;
 import com.example.projectpizzazz.repositories.CustomerRepository;
+import com.example.projectpizzazz.repositories.ReviewRepository;
 import com.example.projectpizzazz.repositories.SalonRepository;
 
 @RestController
@@ -30,11 +33,20 @@ public class CustomerService {
 	@Autowired
 	SalonRepository salonRepository;
 	
+	@Autowired
+	ReviewRepository reviewRepository;
+	
 	@DeleteMapping("/api/user/{userId}")
 	public Customer deleteUser(@PathVariable("userId") int id) {
 		Optional<Salon> ss = salonRepository.findSalonByOwner(id);
 		if(ss.isPresent()) {
 			salonRepository.delete(	ss.get());
+		}
+		Iterable<Review> rr = reviewRepository.findReviewByReviewerId(id);
+		Iterator<Review> iter = rr.iterator();
+
+		while(iter.hasNext()) {
+			reviewRepository.delete(iter.next());
 		}
 		repository.deleteById(id);
 		return null;	
@@ -126,6 +138,20 @@ public class CustomerService {
 			user.setImage(newUser.getImage());
 			if(user.getImage()==null || user.getImage().equalsIgnoreCase(""))
 				user.setImage("https://static.thenounproject.com/png/1095867-200.png");
+			repository.save(user);
+			return user;
+		}
+		return null;
+	}
+	
+	@PutMapping("/api/userFromAdmin/{userId}")
+	public Customer updateUserFromAdmin(@PathVariable("userId") int userId, @RequestBody Customer newUser) {
+		Optional<Customer> data = repository.findById(userId);
+		if (data.isPresent()) {
+			Customer user = data.get();
+			user.setFirstName(newUser.getFirstName());
+			user.setLastName(newUser.getLastName());
+			user.setEmail(newUser.getEmail());
 			repository.save(user);
 			return user;
 		}
