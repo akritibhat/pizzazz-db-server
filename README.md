@@ -14,7 +14,7 @@ Logged in user i) General : Can view listings with ratings and reviews and can a
 
 ii) Verified Reviewer : Their rating are given higher weightage and their comments are posted on the top.
 
-iii) Salon Owner: Can upload a new shop opening with details asked and get updates on posting.
+iii) Salon Owner: Can ask owner to add salons for them.
 
 Target audience: The project aims at fulfiling the needs of people of all gender looking for beauty services.
 
