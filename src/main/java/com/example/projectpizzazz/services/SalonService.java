@@ -56,12 +56,12 @@ public class SalonService {
 		return new Salon();
 	}
 	
-	@PostMapping("/api/{owner}/ownerValidation")
-	public Customer checkFromScreen(@PathVariable ("owner") int owner,@RequestBody Salon salon , HttpSession session) {
+	@GetMapping("/api/{owner}/ownerValidation")
+	public Customer checkFromScreen(@PathVariable ("owner") int owner) {
 		Optional<Customer> cu = customerRepository.findById(owner);
 		if(cu.isPresent()) {
 			Customer cs = cu.get();
-			if(cs.getRole() != null && cs.getRole().equalsIgnoreCase("owner"))
+			if(cs.getRole() != null && cs.getRole().equalsIgnoreCase("owner") && (findSalonByOwner(owner).getId()==0))
 				return cs;
 		}
 		return new Customer();
