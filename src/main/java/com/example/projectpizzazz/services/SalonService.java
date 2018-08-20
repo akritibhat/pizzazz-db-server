@@ -56,6 +56,18 @@ public class SalonService {
 		return new Salon();
 	}
 	
+	@PostMapping("/api/{owner}/ownerValidation")
+	public Customer checkFromScreen(@PathVariable ("owner") int owner,@RequestBody Salon salon , HttpSession session) {
+		Optional<Customer> cu = customerRepository.findById(owner);
+		if(cu.isPresent()) {
+			Customer cs = cu.get();
+			if(cs.getRole() != null && cs.getRole().equalsIgnoreCase("owner"))
+				return cs;
+		}
+		return new Customer();
+	}
+	
+	
 	@GetMapping("/api/salonsFromAdmin")
 	public List<Salon> findAllSalonsFromAdmin() {
 		List<Salon> temp = (List<Salon>) repository.findAll();
