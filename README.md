@@ -6,7 +6,7 @@ Problem Statement: To help users find grooming services near them which are in t
 
 Roles:
 
-Admin: Will be able to CRUD user details and update shop specifics.
+Admin: Will be able to CRUD user details and update user specifics.
 
 Anonymous user: Can view listings with ratings and reviews but cannot give a review or rating.
 
