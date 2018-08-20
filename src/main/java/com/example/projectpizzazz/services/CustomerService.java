@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectpizzazz.models.Customer;
+import com.example.projectpizzazz.models.Salon;
 import com.example.projectpizzazz.repositories.CustomerRepository;
+import com.example.projectpizzazz.repositories.SalonRepository;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600 ,  allowCredentials = "true")
@@ -25,11 +27,17 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository repository;
 	
+	@Autowired
+	SalonRepository salonRepository;
+	
 	@DeleteMapping("/api/user/{userId}")
 	public Customer deleteUser(@PathVariable("userId") int id) {
+		Optional<Salon> ss = salonRepository.findSalonByOwner(id);
+		if(ss.isPresent()) {
+			salonRepository.delete(	ss.get());
+		}
 		repository.deleteById(id);
-		return null;
-		
+		return null;	
 	}
 
 	@PostMapping("/api/user")
