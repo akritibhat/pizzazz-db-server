@@ -22,7 +22,7 @@ public interface CustomerRepository
 		@Param("password") String password);
 	
 	@Query("SELECT u FROM Customer u WHERE u.username=:username")
-	Customer findCustomerByUsername(
+	Iterable<Customer> findCustomerByUsername(
 		@Param("username") String username);
 	
 	@Query("SELECT u FROM Customer u WHERE u.role='reviewer'")
