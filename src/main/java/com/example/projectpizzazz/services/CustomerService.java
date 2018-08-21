@@ -207,8 +207,12 @@ public class CustomerService {
 	}
 
 	@GetMapping("/api/user/{userName}/username")
-	public Iterable<Customer> findUserByUsername(@PathVariable("userName") String username) {
-		return repository.findCustomerByUsername(username);
+	public Customer findUserByUsername(@PathVariable("userName") String username) {	
+		Customer cu = repository.findCustomerByUsername(username);
+		if(cu == null)
+		return new Customer();
+		return cu;
+		
 	}
 
 
