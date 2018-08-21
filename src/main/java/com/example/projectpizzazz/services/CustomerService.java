@@ -203,7 +203,7 @@ public class CustomerService {
 		if (data.isPresent()) {
 			return data.get();
 		}
-		return null;
+		return new Customer();
 	}
 
 	@GetMapping("/api/user/{userName}/username")
