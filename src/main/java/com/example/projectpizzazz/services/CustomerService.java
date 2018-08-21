@@ -70,6 +70,8 @@ public class CustomerService {
 	@GetMapping("/api/checkLogin")
 	public Customer checkLogin(HttpSession session) {
 		Customer currentUser = (Customer) session.getAttribute("currentCustomer");
+		if(currentUser == null )
+			return new Customer();
 		return findUserById(currentUser.getId());
 	}
 
